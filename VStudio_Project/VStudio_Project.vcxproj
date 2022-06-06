@@ -150,10 +150,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game.cpp" />
+    <ClCompile Include="Src\GameObject.cpp" />
     <ClCompile Include="Src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game.hpp" />
+    <ClInclude Include="Src\GameObject.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

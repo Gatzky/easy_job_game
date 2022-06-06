@@ -7,7 +7,9 @@
  *********************************************************************/
 
 #include "Game.hpp"
+#include "GameObject.hpp"
 
+GameObject* player;
 SDL_Texture* playerTex;
 SDL_Rect scrR, destR;
 
@@ -16,6 +18,8 @@ Game::Game(const char* title, int xpos, int ypos, int width, int height, bool fu
 	uint32_t  flags = 0u;
 	flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0u;
 	isRunning = false;
+	renderer = NULL;
+	window = NULL;
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == false)
 	{
@@ -27,7 +31,7 @@ Game::Game(const char* title, int xpos, int ypos, int width, int height, bool fu
 		}
 		isRunning = true;
 
-		playerTex = IMG_LoadTexture(renderer, "assets/vampire.png");
+		player = new GameObject("assets/vampire.png", renderer, 100, 100);
 	}
 }
 
@@ -54,18 +58,13 @@ void Game::handleEvent()
 
 void Game::update()
 {
-	static uint8_t cnt;
-	cnt++;
-	destR.h = 44;
-	destR.w = 30;
-	destR.x = cnt;
-
+	player->Update();
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, playerTex, NULL, &destR);
+	player->Render();
 	SDL_RenderPresent(renderer);
 }
 
