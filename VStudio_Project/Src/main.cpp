@@ -8,8 +8,10 @@
 
 #include "SDL.h"
 #include "Game.hpp"
+#include "FrameHandler.hpp"
 
 Game* game = NULL;
+FrameHandler* frameHandler = NULL;
 
 /**
  * main function
@@ -20,29 +22,20 @@ Game* game = NULL;
  */
 int main(int argc, char *argv[])
 {
-	const int FPS = 60;
-	const int frameDelay = 1000 / FPS;
-
-	uint32_t frameStart;
-	int frameTime;
-
 	game = new Game("game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 600, false);
+	frameHandler = new FrameHandler(60);
 
 	while (game->running())
 	{
-		frameStart = SDL_GetTicks();
+		frameHandler->SetStart();
 		game->handleEvent();
 		game->update();
 		game->render();
-		frameTime = SDL_GetTicks() - frameStart;
-
-		if (frameDelay > frameTime)
-		{
-			SDL_Delay(frameDelay - frameTime);
-		}
+		frameHandler->HandleFPS();
 	}
 
 	delete game;
+	delete frameHandler;
 
 	return 0;
 }
