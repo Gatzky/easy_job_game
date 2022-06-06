@@ -26,9 +26,7 @@ int main(int argc, char *argv[])
 	uint32_t frameStart;
 	int frameTime;
 
-	game = new Game();
-
-	game->init("game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 600, false);
+	game = new Game("game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 600, false);
 
 	while (game->running())
 	{
@@ -44,7 +42,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	game->clean();
+	delete game;
 
 	return 0;
 }
